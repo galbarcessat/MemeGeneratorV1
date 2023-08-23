@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/helpers.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/main-nav.css">
+    <link rel="stylesheet" href="css/meme-gallery.css">
+    <link rel="stylesheet" href="css/meme-editor.css">
+    <link rel="stylesheet" href="css/save-page.css">
+    <title>Meme Genrator</title>
+</head>
+
+<body onload="onInit()">
+
+    <header class="main-header">
+        <nav class="main-nav-container grid space-between align-center flow-column">
+            <div class="logo">MemeGenerator🤯</div>
+            <div class="main-nav">
+                <ul class="nav-links clean-list grid flow-column">
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Memes</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="meme-gallery-container">
+        <section class="filter-section">
+            <input class="text-filter-input" type="text" placeholder="Search 🔎">
+            <div class="filter-options-container">
+                <ul class="filter-options clean-list">
+                    <li>Funny</li>
+                    <li>Animal</li>
+                    <li>Men</li>
+                    <li>Women</li>
+                    <li>Smile</li>
+                    <li>Sleep</li>
+                </ul>
+                <button class="btn-more">More</button>
+            </div>
+        </section>
+        <section class="meme-gallery">
+
+        </section>
+
+    </section>
+
+    <section class="meme-editor hide">
+        <div class="canvas-container">
+            <!-- <h1>Meme Editor</h1>     -->
+            <canvas height="400px" width="400px">
+        </div>
+
+        </canvas>
+        <div class="tool-box-container">
+            <input type="text" placeholder="type something here" class="text-edit-input"
+                oninput="setLineTxt(this.value)">
+
+            <div class="edit-lines-container">
+                <button class="btn btn-add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
+                <button class="btn btn-switch-lines" onclick="onChangeLine()"><i
+                        class="fa-solid fa-arrows-up-down"></i></button>
+                <button onclick="onDeleteLine()" class="btn"><i class="fa-regular fa-trash-can"></i></button>
+            </div>
+
+            <div class="edit-text-container">
+                <div class="edit-text-upper-container">
+                    <button class="btn btn-bigger-txt" onclick="setTxtSize('+')">A+</button>
+                    <button class="btn btn-smaller-txt" onclick="setTxtSize('-')">A-</button>
+                    <button class="btn"><i class="fa-solid fa-align-left"></i></button>
+                    <button class="btn"><i class="fa-solid fa-align-center"></i></button>
+                    <button class="btn"><i class="fa-solid fa-align-right"></i></button>
+                </div>
+                <div class="edit-text-lower-container">
+                    <select name="" id="" class="select-font" onchange="onChangeFont(this.value)">
+                        <option value="Arial">Arial</option>
+                        <option value="Impact">Impact</option>
+                        <option value="monospace">monospace</option>
+                        <option value="cursive">Cursive</option>
+                    </select>
+                    <input type="color" class="btn text-color-input" oninput="setTxtColor(this.value)">
+                    <input type="color" class="btn stroke-color-input" oninput="">
+                </div>
+
+            </div>
+
+            <div class="stickers">STICKERS</div>
+
+            <div class="download-share-container">
+                <button class="btn btn-download">
+                    <a href="#" onclick="onDownloadCanvas(this)" download="file-name">
+                        <i class="fa-solid fa-download"></i></a>
+                </button>
+                <button>Share</button>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="https://kit.fontawesome.com/9a21a2143b.js" crossorigin="anonymous"></script>
+    <script src="js/services/meme.service.js"></script>
+    <script src="js/meme.controller.js"></script>
+    <script src="js/gallery.controller.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

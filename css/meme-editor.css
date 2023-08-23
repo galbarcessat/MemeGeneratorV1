@@ -1,0 +1,86 @@
+canvas {
+    border: 2px solid rgb(131, 131, 131);
+    border-radius: 1em;
+}
+
+.meme-editor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 2rem;
+}
+
+.tool-box-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 25rem;
+    height: 25rem;
+    border-radius: 30px;
+    background-color: #6e6e6e;
+    padding: 2rem;
+    border-radius: 1em;
+
+}
+
+.text-edit-input {
+    padding: 1em;
+    width: 90%;
+    border-radius: 1em;
+}
+
+.btn-download a {
+    text-decoration: none;
+    color: black;
+}
+
+.btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5em;
+    cursor: pointer;
+    box-shadow: 1px 2px 0px rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58)
+
+}
+
+i {
+    font-size: 1.5rem;
+}
+
+.edit-text-container {
+    border-radius: 15px;
+    background-color: #19a59f;
+    padding: 1.2em;
+}
+
+.edit-text-upper-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin-block-end: 10px;
+
+}
+.edit-text-lower-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+
+.btn-bigger-txt,
+.btn-smaller-txt {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    text-align: center;
+    font-weight: 800;
+    font-size: 1.3rem;
+    background-color: white;
+
+}
+
+.select-font {
+    padding: 0.8em;
+}

@@ -49,31 +49,30 @@
 
     </section>
 
-    <section class="meme-editor hide">
+    <section class="meme-editor">
         <div class="canvas-container">
-            <!-- <h1>Meme Editor</h1>     -->
             <canvas height="400px" width="400px">
         </div>
 
         </canvas>
         <div class="tool-box-container">
             <input type="text" placeholder="type something here" class="text-edit-input"
-                oninput="setLineTxt(this.value)">
+                oninput="onSetLineTxt(this.value)">
 
             <div class="edit-lines-container">
-                <button class="btn btn-add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
-                <button class="btn btn-switch-lines" onclick="onChangeLine()"><i
+                <button class="btn btn-switch-lines" onclick="onSwitchLine()"><i
                         class="fa-solid fa-arrows-up-down"></i></button>
-                <button onclick="onDeleteLine()" class="btn"><i class="fa-regular fa-trash-can"></i></button>
+                <button class="btn btn-add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
+                <button onclick="onDeleteLine()" class="btn btn-delete-line"><i class="fa-regular fa-trash-can"></i></button>
             </div>
 
             <div class="edit-text-container">
                 <div class="edit-text-upper-container">
-                    <button class="btn btn-bigger-txt" onclick="setTxtSize('+')">A+</button>
-                    <button class="btn btn-smaller-txt" onclick="setTxtSize('-')">A-</button>
-                    <button class="btn"><i class="fa-solid fa-align-left"></i></button>
-                    <button class="btn"><i class="fa-solid fa-align-center"></i></button>
-                    <button class="btn"><i class="fa-solid fa-align-right"></i></button>
+                    <button class="btn btn-bigger-txt" onclick="onSetTxtSize('+')">A+</button>
+                    <button class="btn btn-smaller-txt" onclick="onSetTxtSize('-')">A-</button>
+                    <button onclick="onAlign('left')" class="btn"><i class="fa-solid fa-align-left"></i></button>
+                    <button onclick="onAlign('center')" class="btn"><i class="fa-solid fa-align-center"></i></button>
+                    <button onclick="onAlign('right')" class="btn"><i class="fa-solid fa-align-right"></i></button>
                 </div>
                 <div class="edit-text-lower-container">
                     <select name="" id="" class="select-font" onchange="onChangeFont(this.value)">
@@ -82,8 +81,8 @@
                         <option value="monospace">monospace</option>
                         <option value="cursive">Cursive</option>
                     </select>
-                    <input type="color" class="btn text-color-input" oninput="setTxtColor(this.value)">
-                    <input type="color" class="btn stroke-color-input" oninput="">
+                    <input type="color" class="btn text-color-input" oninput="onSetTxtColor(this.value)">
+                    <input type="color" class="btn stroke-color-input" oninput="onSetTxtStroke(this.value)">
                 </div>
 
             </div>
@@ -91,11 +90,11 @@
             <div class="stickers">STICKERS</div>
 
             <div class="download-share-container">
+                <button>Share</button>
                 <button class="btn btn-download">
                     <a href="#" onclick="onDownloadCanvas(this)" download="file-name">
                         <i class="fa-solid fa-download"></i></a>
                 </button>
-                <button>Share</button>
             </div>
         </div>
 

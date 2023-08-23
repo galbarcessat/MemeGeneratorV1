@@ -25,28 +25,39 @@ canvas {
 
 }
 
+.btn {
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 0.5em;
+    cursor: pointer;
+    box-shadow: 1px 2px 0px rgba(92, 92, 92, 0.55)
+}
+
+i {
+    font-size: 1.5rem;
+}
+
 .text-edit-input {
     padding: 1em;
     width: 90%;
     border-radius: 1em;
 }
 
+.btn-add-line {
+    background-image: linear-gradient(-38deg, #6fff85 0%, #219433 100%);
+}
+
+.btn-switch-lines {
+    background-image: linear-gradient(-38deg, #72d5ee 0%, #40b1ce 50%, #0c7792 100%);
+}
+
+.btn-delete-line {
+    background-image: linear-gradient(-38deg, #b8162e 0%, #cf1d37 1%, #ff5f46 100%);
+}
+
 .btn-download a {
     text-decoration: none;
     color: black;
-}
-
-.btn {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 0.5em;
-    cursor: pointer;
-    box-shadow: 1px 2px 0px rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58)
-
-}
-
-i {
-    font-size: 1.5rem;
 }
 
 .edit-text-container {
@@ -55,25 +66,23 @@ i {
     padding: 1.2em;
 }
 
-.edit-text-upper-container{
+.edit-text-upper-container {
     display: flex;
     justify-content: space-between;
-    gap: 5px;
+    gap: 1rem;
     margin-block-end: 10px;
 
 }
-.edit-text-lower-container{
+
+.edit-text-lower-container {
     display: flex;
     justify-content: space-between;
-    gap: 5px;
+    gap: 1rem;
 }
 
 
 .btn-bigger-txt,
 .btn-smaller-txt {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     text-align: center;
     font-weight: 800;
     font-size: 1.3rem;
@@ -83,4 +92,7 @@ i {
 
 .select-font {
     padding: 0.8em;
+    width: 60%;
 }
+
+

@@ -16,7 +16,7 @@ function renderMeme() {
         let txt2 = gMeme.lines[1].txt
         drawText(txt1, center.x, center.y - 150, 0)
         drawText(txt2, center.x, center.y + 150, 1)
-        renderAllLines()
+        // renderAllLines()
     }
 
 }
@@ -27,7 +27,7 @@ function renderAllLines() {
     // drawText(txt1, center.x, center.y - 150, 0)
     // drawText(txt2, center.x, center.y + 150, 1)
     if (gMeme.lines.length > 2) {
-        gMeme.lines.forEach((line,lineIdx) => {
+        gMeme.lines.forEach((line, lineIdx) => {
             let txt = line.txt
             console.log('txt', txt)
             console.log('lineIdx', lineIdx)
@@ -38,10 +38,10 @@ function renderAllLines() {
 
 function drawText(text, x, y, lineIdx) {
     gCtx.lineWidth = 1
-    gCtx.strokeStyle = 'black'
+    gCtx.strokeStyle = gMeme.lines[lineIdx].stroke
     gCtx.fillStyle = gMeme.lines[lineIdx].color
-    gCtx.font = `${gMeme.lines[lineIdx].size}px Arial`
-    gCtx.textAlign = 'center'
+    gCtx.font = `${gMeme.lines[lineIdx].size}px ${gMeme.lines[lineIdx].font}`
+    gCtx.textAlign = gMeme.lines[lineIdx].align
     gCtx.textBaseline = 'middle'
 
     gCtx.fillText(text, x, y)
@@ -66,6 +66,31 @@ function onDownloadCanvas(elLink) {
 
 }
 
+function onSetLineTxt(value) {
+    setLineTxt(value)
+    renderMeme()
+}
+
+function onSetTxtColor(value) {
+    setTxtColor(value)
+    renderMeme()
+}
+
+function onSetTxtSize(action) {
+    setTxtSize(action)
+    renderMeme()
+}
+
+function onChangeFont(font) {
+    updateTxtFont(font)
+    renderMeme()
+}
+
+function onSetTxtStroke(value) {
+    setTxtStrokeColor(value)
+    renderMeme()
+}
+
 function onAddLine() {
     addLine()
     const center = { x: gCanvas.width / 2, y: gCanvas.height / 2 }
@@ -73,5 +98,24 @@ function onAddLine() {
     let newTxt = gMeme.lines[newLineIdx].txt
 
     drawText(newTxt, center.x, center.y, newLineIdx)
+
+}
+
+function onDeleteLine(){
+    console.log('DELETE LINE IN PROGRESS CONTINUE LATER')
+    // deleteLine()
+    // renderMeme()
+}
+
+function onSwitchLine() {
+    switchLineIdx()
+    console.log('TEXT LINE NUMBER : ', gMeme.selectedLineIdx)
+}
+
+function onAlign(direction) {
+    if (!direction) return
+    gMeme.lines[gMeme.selectedLineIdx].align = direction
+    console.log('gMeme', gMeme)
+    renderMeme()
 
 }

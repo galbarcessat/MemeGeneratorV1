@@ -1,0 +1,59 @@
+@media (max-width: 1120px) {
+    .filter-section {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .filter-by-name {
+        width: 40%;
+    }
+
+}
+
+@media (max-width: 850px) {
+    .meme-editor {
+        flex-direction: column;
+        margin-bottom: 5rem;
+    }
+
+    .filter-options-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .btn-upload {
+        width: 130px;
+        height: 40px;
+    }
+
+    .filter-options {
+        gap: 0.5em;
+        padding: 0.5em;
+    }
+
+    .filter-options li:first-of-type {
+        margin-inline-start: 0;
+    }
+
+    .filter-options li:last-of-type {
+        margin-inline-end: 0;
+    }
+
+    .filter-by-name {
+        width: 50%;
+    }
+
+    .meme-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    }
+
+    .saved-meme-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 200px);
+    }
+
+
+}

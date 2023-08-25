@@ -1,0 +1,22 @@
+
+.saved-meme-gallery {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+    grid-template-columns: repeat(auto-fit, 300px);
+    justify-content: center;
+    /* grid-auto-flow: dense; */
+    gap: 20px;
+}
+
+.saved-memes-title {
+    color: white;
+    text-align: center;
+}
+
+.saved-memes-p {
+    color: white;
+    font-size: 1.3em;
+    text-align: center;
+    margin-bottom: 3rem;
+
+}

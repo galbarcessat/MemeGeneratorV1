@@ -1,0 +1,22 @@
+.about-me-inner-container {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gal-img {
+    border-radius: 50%;
+    width: 280px;
+    margin-bottom: 3rem;
+}
+
+.about-p-container {
+    width: 70%;
+}
+
+.about-me-p {
+    color: rgb(217, 217, 217);
+    letter-spacing: 0.1em;
+}

@@ -14,8 +14,9 @@ canvas {
 .tool-box-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 10px;
     width: 25rem;
     height: 25rem;
     border-radius: 30px;
@@ -55,14 +56,16 @@ i {
     background-image: linear-gradient(-38deg, #b8162e 0%, #cf1d37 1%, #ff5f46 100%);
 }
 
-.btn-download a {
-    text-decoration: none;
-    color: black;
+.btn-save-meme {
+    background-image: linear-gradient(-38deg, #ffb049 0%, #ba6900 100%);
+
 }
 
 .edit-text-container {
     border-radius: 15px;
-    background-color: #19a59f;
+    background-image: linear-gradient(-38deg, rgb(32, 158, 190) 0%, #20d5cc 50%, rgb(30, 151, 182) 100%);
+
+    /* background-color: #19a59f; */
     padding: 1.2em;
 }
 
@@ -95,4 +98,47 @@ i {
     width: 60%;
 }
 
+.stickers-container {
+    width: 80%;
+    border-radius: 1.5rem;
+    background-color: white;
+    padding: 0.6rem;
+    /* margin-top: 1.25rem;
+    margin-bottom: 1.25rem; */
+}
 
+.btn-share {
+    color: white;
+    border-radius: 1rem;
+    background-image: linear-gradient(-86deg, #1e7cd3 0%, #43a4ff 100%);
+    padding: 0.5em;
+    font-size: 1.25rem;
+    width: 6em;
+    cursor: pointer;
+}
+
+.btn-download {
+    border-radius: 1rem;
+    background-image: linear-gradient(-86deg, #8f44bb 0%, #c370f3 100%);
+    padding: 0.5em;
+    font-size: 1.25rem;
+    width: 6em;
+}
+
+.btn-download a {
+    text-decoration: none;
+    color: white;
+}
+
+.stickers-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background-image: linear-gradient(-38deg, rgb(255, 255, 255) 0%, #b6b6b6 50%, rgb(232, 232, 232) 100%);
+}
+
+.sticker {
+    font-size: 1.7rem;
+    cursor: pointer;
+}

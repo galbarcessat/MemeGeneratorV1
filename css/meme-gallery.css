@@ -1,13 +1,3 @@
-* {
-    box-sizing: border-box;
-}
-
-
-body {
-    background-color: #22252c;
-    font-family: sans-serif;
-}
-
 .meme-gallery-container {
     background-color: #383b42;
     margin-block-start: 1em;
@@ -26,12 +16,13 @@ body {
     display: flex;
 }
 
-.text-filter-input {
+.filter-by-name {
     border-radius: 2.5rem;
     background-color: #22252c;
     margin-inline-end: 1rem;
     width: 30%;
     padding: 1em;
+    color: white;
 }
 
 .filter-options {
@@ -58,7 +49,8 @@ body {
     margin-inline-end: 2rem;
 }
 
-.btn-more {
+.btn-special {
+
     margin-inline-start: 1em;
     font-size: 1rem;
     padding: 0.625em 1.5625em;
@@ -70,10 +62,33 @@ body {
     cursor: pointer;
 }
 
+.btn-special:hover {
+    background-image: linear-gradient(-86deg, #3dde80 0%, #0faacd 100%);
+    border: 1px solid white;
+
+}
+
+.btn-special input[type="file"] {
+    display: none;
+}
+
+.btn-upload {
+    position: relative;
+    width: 6.25rem;
+}
+
+.btn-upload::before {
+    content: 'Upload';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .meme-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* grid-template-columns: repeat(auto-fit, 200px); */
     /* grid-auto-flow: dense; */
     gap: 20px;
 }
@@ -81,12 +96,18 @@ body {
 img {
     width: 100%;
     height: 100%;
-    
+
 }
-.image{
+
+.image {
     border-radius: 1rem;
     cursor: pointer;
 }
-.image:hover{
+
+.image:hover {
     border: 2px solid white;
+}
+
+.filter-key {
+    cursor: pointer;
 }

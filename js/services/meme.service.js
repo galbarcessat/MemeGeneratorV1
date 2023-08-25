@@ -3,30 +3,53 @@
 let gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
-    lines: [
-        {
-            txt: 'Enter text here',
-            size: 40,
-            color: 'white',
-            align: 'center',
-            font: 'Arial',
-            stroke: 'black'
-        },
-        {
-            txt: 'Enter text here',
-            size: 40,
-            color: 'white',
-            align: 'center',
-            font: 'Arial',
-            stroke: 'black'
-        }
+    lines: []
 
-    ]
 }
+
+
+let isHighlight
 
 function getMeme() {
     return gMeme
 }
+
+function resetgMemeLines() {
+    const center = { x: gCanvas.width / 2, y: gCanvas.height / 2 }
+    gMeme.lines = [
+        {
+            pos: { x: center.x, y: center.y - 150 },
+            txt: 'Enter text here',
+            size: 40,
+            color: 'white',
+            align: 'center',
+            font: 'Arial',
+            stroke: 'black',
+            isDrag: false
+        },
+        {
+            pos: { x: center.x, y: center.y + 150 },
+            txt: 'Enter text here',
+            size: 40,
+            color: 'white',
+            align: 'center',
+            font: 'Arial',
+            stroke: 'black',
+            isDrag: false
+
+        }
+
+    ]
+
+}
+
+function setLineDimensions(text, lineIdx) {
+    // console.log('gMeme.lines', gMeme.lines)
+    let measure = gCtx.measureText(text)
+    gMeme.lines[lineIdx].height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent
+    gMeme.lines[lineIdx].width = measure.actualBoundingBoxLeft + measure.actualBoundingBoxRight
+}
+
 
 function updateMemeImg(imgId) {
     gMeme.selectedImgId = imgId
@@ -60,27 +83,58 @@ function updateTxtFont(font) {
 
 }
 
-function addLine() {
+function addLine(txt = 'Enter text here') {
     let line = {
-        txt: 'Enter text here',
+        pos: {},
+        txt,
         size: 40,
         color: 'white',
         align: 'center',
-        font: 'Arial'
+        font: 'Arial',
+        isDrag: false
     }
     gMeme.lines.push(line)
-    console.log('gMeme', gMeme)
+    gMeme.selectedLineIdx = gMeme.lines.length - 1
+    setLineDimensions(line.txt, gMeme.selectedLineIdx)
+    // console.log('gMeme', gMeme)
 }
 
-// function deleteLine() {
-//     console.log('gMeme.lines', gMeme.lines)
-//     let selectedLineIdx = gMeme.selectedLineIdx
-//     gMeme.lines.splice(selectedLineIdx, 1)
-//     console.log('gMeme.lines', gMeme.lines)
-// }
+function deleteLine() {
+    let selectedLineIdx = gMeme.selectedLineIdx
+    gMeme.lines.splice(selectedLineIdx, 1)
+    gMeme.selectedLineIdx = 0
+    // console.log('gMeme.lines', gMeme.lines)
+}
 
 function switchLineIdx() {
     let currentLineIdx = gMeme.selectedLineIdx
     if (currentLineIdx < gMeme.lines.length - 1) gMeme.selectedLineIdx += 1
     else if (currentLineIdx === gMeme.lines.length - 1) gMeme.selectedLineIdx = 0
+    changeTextInput()
 }
+
+
+function updateRandomMemeImg() {
+    let memeImgId = getRandomImgId(gImgs)
+    console.log('memeImgId', memeImgId)
+    updateMemeImg(memeImgId)
+}
+
+function getRandomImgId(imgsArray) {
+    const randomIndex = Math.floor(Math.random() * imgsArray.length);
+    return imgsArray[randomIndex].id;
+}
+
+function saveMeme() {
+    let savedMemes = loadFromStorage(STORAGE_KEY)
+    if (!savedMemes || !savedMemes.length) savedMemes = []
+
+    let gMemeCopy = structuredClone(gMeme);
+    const dataUrl = gCanvas.toDataURL()
+    gMemeCopy.dataUrl = dataUrl
+    savedMemes.push(gMemeCopy)
+
+    saveToStorage(STORAGE_KEY, savedMemes)
+}
+
+

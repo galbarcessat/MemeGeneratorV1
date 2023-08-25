@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="css/main-nav.css">
     <link rel="stylesheet" href="css/meme-gallery.css">
     <link rel="stylesheet" href="css/meme-editor.css">
-    <link rel="stylesheet" href="css/save-page.css">
-    <title>Meme Genrator</title>
+    <link rel="stylesheet" href="css/saved-meme-gallery.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/mq.css">
+    <title>Meme Generator</title>
 </head>
 
 <body onload="onInit()">
@@ -20,9 +22,10 @@
             <div class="logo">MemeGenerator🤯</div>
             <div class="main-nav">
                 <ul class="nav-links clean-list grid flow-column">
-                    <li><a href="#">Gallery</a></li>
-                    <li><a href="#">Memes</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a onclick="handleSectionDisplayV2('gallery')" href="#">Gallery</a></li>
+                    <!-- <li><a onclick="onShowGallery()" href="#">Gallery</a></li> -->
+                    <li><a onclick="handleSectionDisplayV2('saved-gallery')" href="#">Memes</a></li>
+                    <li><a onclick="handleSectionDisplayV2('about')" href="#">About</a></li>
                 </ul>
             </div>
         </nav>
@@ -30,17 +33,29 @@
 
     <section class="meme-gallery-container">
         <section class="filter-section">
-            <input class="text-filter-input" type="text" placeholder="Search 🔎">
+
+            <input class="filter-by-name" type="text" placeholder="Search 🔎"
+                oninput="this.title=this.value;onSetFilterBy({name: this.value})">
             <div class="filter-options-container">
                 <ul class="filter-options clean-list">
-                    <li>Funny</li>
-                    <li>Animal</li>
-                    <li>Men</li>
-                    <li>Women</li>
-                    <li>Smile</li>
-                    <li>Sleep</li>
+                    <li class="filter-key filter-funny" onclick="onSetFilterByKeyword({keyword : this.innerText})">Funny
+                    </li>
+                    <li class="filter-key filter-animal" onclick="onSetFilterByKeyword({keyword : this.innerText})">
+                        Animal</li>
+                    <li class="filter-key filter-men" onclick="onSetFilterByKeyword({keyword : this.innerText})">Men
+                    </li>
+                    <li class="filter-key filter-baby" onclick="onSetFilterByKeyword({keyword : this.innerText})">Baby
+                    </li>
+                    <li class="filter-key filter-smile" onclick="onSetFilterByKeyword({keyword : this.innerText})">Smile
+                    </li>
+                    <li class="filter-key filter-sleep" onclick="onSetFilterByKeyword({keyword : this.innerText})">Sleep
+                    </li>
+                    <li class="filter-key filter-sleep" onclick="onSetFilterByKeyword({keyword : ''})">None</li>
                 </ul>
-                <button class="btn-more">More</button>
+                <label class="btn-special btn-upload">
+                    <input type="file" name="image" onchange="onImgInput(event)" accept="image/*" />
+                </label>
+                <button onclick="onRenderRandomMeme()" class="btn-special btn-im-flexible">I'm Flexible</button>
             </div>
         </section>
         <section class="meme-gallery">
@@ -49,59 +64,117 @@
 
     </section>
 
-    <section class="meme-editor">
-        <div class="canvas-container">
-            <canvas height="400px" width="400px">
+    <section class="meme-editor-container hide">
+        <section class="meme-editor">
+            <div class="canvas-container">
+                <canvas height="400" width="400">
+
+                </canvas>
+            </div>
+
+            <div class="tool-box-container">
+                <input type="text" placeholder="type something here" class="text-edit-input"
+                    oninput="onSetLineTxt(this.value)">
+
+                <div class="edit-lines-container">
+                    <button class="btn btn-switch-lines" onclick="onSwitchLine()"><i
+                            class="fa-solid fa-arrows-up-down"></i></button>
+                    <button class="btn btn-add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
+                    <button class="btn btn-delete-line" onclick="onDeleteLine()"><i
+                            class="fa-regular fa-trash-can"></i></button>
+                    <button class="btn btn-save-meme" onclick="onSaveMeme()"><i
+                            class="fa-regular fa-bookmark"></i></button>
+
+                </div>
+
+                <div class="edit-text-container">
+                    <div class="edit-text-upper-container">
+                        <button class="btn btn-bigger-txt" onclick="onSetTxtSize('+')">A+</button>
+                        <button class="btn btn-smaller-txt" onclick="onSetTxtSize('-')">A-</button>
+                        <button onclick="onAlign('end')" class="btn"><i class="fa-solid fa-align-left"></i></button>
+                        <button onclick="onAlign('center')" class="btn"><i
+                                class="fa-solid fa-align-center"></i></button>
+                        <button onclick="onAlign('start')" class="btn"><i class="fa-solid fa-align-right"></i></button>
+                    </div>
+                    <div class="edit-text-lower-container">
+                        <select name="" id="" class="select-font" onchange="onChangeFont(this.value)">
+                            <option value="Arial">Arial</option>
+                            <option value="Impact">Impact</option>
+                            <option value="monospace">monospace</option>
+                            <option value="cursive">Cursive</option>
+                        </select>
+                        <input type="color" class="btn text-color-input" oninput="onSetTxtColor(this.value)">
+                        <input type="color" class="btn stroke-color-input" oninput="onSetTxtStroke(this.value)">
+                    </div>
+
+                </div>
+
+                <div class="stickers-container">
+                    <span class="sticker" onclick="onAddSticker(this.innerText)">😂</span>
+                    <span class="sticker" onclick="onAddSticker(this.innerText)">🤯</span>
+                    <span class="sticker" onclick="onAddSticker(this.innerText)">😎</span>
+                    <span class="sticker" onclick="onAddSticker(this.innerText)">🤬</span>
+                    <span class="sticker" onclick="onAddSticker(this.innerText)">🤪</span>
+                    <span class="sticker" onclick="onAddSticker(this.innerText)">🤡</span>
+                </div>
+
+                <div class="download-share-container">
+                    <button class="btn-share" onclick="onUploadImg()">Share</button>
+                    <button class="btn-download">
+                        <a href="#" onclick="onDownloadCanvas(this)" download="file-name">
+                            <!-- <i class="fa-solid fa-download"></i> -->
+                            Download
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+    </section>
+
+    <section class="saved-memes-container hide">
+        <div class="saved-memes-inner-container">
+
+            <h1 class="saved-memes-title">Your saved memes collection!</h1>
+            <p class="saved-memes-p">"Revamp your saved memes with a single click and re-save for an upgraded version!"
+            </p>
+            <section class="saved-meme-gallery">
+
+            </section>
         </div>
+    </section>
 
-        </canvas>
-        <div class="tool-box-container">
-            <input type="text" placeholder="type something here" class="text-edit-input"
-                oninput="onSetLineTxt(this.value)">
-
-            <div class="edit-lines-container">
-                <button class="btn btn-switch-lines" onclick="onSwitchLine()"><i
-                        class="fa-solid fa-arrows-up-down"></i></button>
-                <button class="btn btn-add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
-                <button onclick="onDeleteLine()" class="btn btn-delete-line"><i class="fa-regular fa-trash-can"></i></button>
+    <section class="about-me-container hide">
+        <div class="about-me-inner-container">
+            <div class="gal-img-container">
+                <img class="gal-img" src="gal/gal.jpg" alt="Gal Ben Natan">
+            </div>
+            <div class="about-p-container">
+                <p class="about-me-p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum voluptatum ullam
+                    blanditiis nulla! Dolorum tempora optio velit tempore deserunt iusto amet voluptatum, dignissimos,
+                    quas error odio br repudiandae? Natus repellendus id aperiam libero adipisci. Nesciunt cupiditate,
+                    in eaque perferendis quae dolore repudiandae veniam, a cumque corporis quidem? Recusandae repellat
+                    saepe vel porro eius dolorum quo a, quod eaque, mollitia soluta aut dignissimos sit sint deleniti
+                    delectus laudantium at non aliquam nobis nemo atque? Assumenda nisi accusantium minima at,
+                    praesentium dolorem quaerat nihil recusandae dolor magnam eveniet molestias deleniti maxime optio
+                    inventore deserunt distinctio. Enim magni expedita rem, ipsam fugiat magnam eaque!</p>
             </div>
 
-            <div class="edit-text-container">
-                <div class="edit-text-upper-container">
-                    <button class="btn btn-bigger-txt" onclick="onSetTxtSize('+')">A+</button>
-                    <button class="btn btn-smaller-txt" onclick="onSetTxtSize('-')">A-</button>
-                    <button onclick="onAlign('left')" class="btn"><i class="fa-solid fa-align-left"></i></button>
-                    <button onclick="onAlign('center')" class="btn"><i class="fa-solid fa-align-center"></i></button>
-                    <button onclick="onAlign('right')" class="btn"><i class="fa-solid fa-align-right"></i></button>
-                </div>
-                <div class="edit-text-lower-container">
-                    <select name="" id="" class="select-font" onchange="onChangeFont(this.value)">
-                        <option value="Arial">Arial</option>
-                        <option value="Impact">Impact</option>
-                        <option value="monospace">monospace</option>
-                        <option value="cursive">Cursive</option>
-                    </select>
-                    <input type="color" class="btn text-color-input" oninput="onSetTxtColor(this.value)">
-                    <input type="color" class="btn stroke-color-input" oninput="onSetTxtStroke(this.value)">
-                </div>
-
-            </div>
-
-            <div class="stickers">STICKERS</div>
-
-            <div class="download-share-container">
-                <button>Share</button>
-                <button class="btn btn-download">
-                    <a href="#" onclick="onDownloadCanvas(this)" download="file-name">
-                        <i class="fa-solid fa-download"></i></a>
-                </button>
-            </div>
         </div>
 
     </section>
 
+    <footer class="footer-container">
+        <p class="footer-txt">Created By Gal Ben Natan &copy; 2023. All rights reserved.</p>
+    </footer>
+
     <script src="https://kit.fontawesome.com/9a21a2143b.js" crossorigin="anonymous"></script>
+
+    <script src="js/services/storage.service.js"></script>
+    <script src="js/services/saved-memes.service.js"></script>
     <script src="js/services/meme.service.js"></script>
+    <script src="js/services/gallery.service.js"></script>
+    <script src="js/saved-memes.controller.js"></script>
     <script src="js/meme.controller.js"></script>
     <script src="js/gallery.controller.js"></script>
     <script src="js/main.js"></script>

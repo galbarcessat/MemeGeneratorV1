@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: #22252c;
+    font-family: sans-serif;
+}
+
+.footer-container{
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background-color: #22252c;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.footer-txt{
+    color: white;
+}

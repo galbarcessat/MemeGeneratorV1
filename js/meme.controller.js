@@ -1,39 +1,83 @@
 'use strict'
 
 function onUpdategMemeImg(imgId) {
+    // handleSectionDisplay()
+    handleSectionDisplayV2('editor')
     updateMemeImg(imgId)
+    resetgMemeLines()
     renderMeme()
+    console.log('gMeme', gMeme)
 }
 
 function renderMeme() {
+    // let elImg
+    // if (gMeme.dataUrl) {
+    //     elImg = gMeme.dataUrl
+    //     resetgMemeLines()
+    //     gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height)
+    //     renderAllLines()
+    //     if (!isHighlight) {
+    //         drawFrame()
+    //     }
+
+    //     return
+    // } else {
+    //     elImg = getImage()
+    // }
     let elImg = getImage()
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height)
+        renderAllLines()
+        if (!isHighlight) {
+            drawFrame()
+        }
 
-        const center = { x: gCanvas.width / 2, y: gCanvas.height / 2 }
-        //selectedLineIdx
-        let txt1 = gMeme.lines[0].txt
-        let txt2 = gMeme.lines[1].txt
-        drawText(txt1, center.x, center.y - 150, 0)
-        drawText(txt2, center.x, center.y + 150, 1)
-        // renderAllLines()
     }
 
 }
 
 function renderAllLines() {
-    // let txt1 = gMeme.lines[0].txt
-    // let txt2 = gMeme.lines[1].txt
-    // drawText(txt1, center.x, center.y - 150, 0)
-    // drawText(txt2, center.x, center.y + 150, 1)
-    if (gMeme.lines.length > 2) {
-        gMeme.lines.forEach((line, lineIdx) => {
-            let txt = line.txt
-            console.log('txt', txt)
-            console.log('lineIdx', lineIdx)
-            // drawText(txt,line.x,line.y,lineIdx)
-        })
+    gMeme.lines.forEach((line, lineIdx) => {
+        let txt = line.txt
+        drawText(txt, line.pos.x, line.pos.y, lineIdx)
+        setLineDimensions(txt, lineIdx)
+    })
+}
+
+function drawFrame() {
+    let line = gMeme.lines[gMeme.selectedLineIdx]
+    if (!line || isHighlight) return
+
+    let { pos, width, height } = line
+    const padding = 5
+    let x = pos.x
+    let y = pos.y
+
+    if (line.align === 'center') {
+        x = pos.x - width / 2
     }
+    else if (line.align === 'start') {
+        x = pos.x
+    }
+    else if (line.align === 'end') {
+        x = pos.x - width
+    }
+
+    y = y - height / 2;
+
+    gCtx.beginPath();
+    gCtx.rect(
+        x - padding,
+        y - padding,
+        width + 2 * padding,
+        height + 2 * padding
+    );
+
+    gCtx.strokeStyle = 'black'
+    gCtx.lineWidth = 1
+    gCtx.stroke()
+
+
 }
 
 function drawText(text, x, y, lineIdx) {
@@ -46,6 +90,7 @@ function drawText(text, x, y, lineIdx) {
 
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
+    gMeme.lines[lineIdx].pos = { x, y }
 }
 
 
@@ -56,15 +101,6 @@ function getImage() {
     return elImg
 }
 
-
-
-function onDownloadCanvas(elLink) {
-    const dataUrl = gCanvas.toDataURL()
-
-    elLink.href = dataUrl
-    elLink.download = 'my-meme'
-
-}
 
 function onSetLineTxt(value) {
     setLineTxt(value)
@@ -91,24 +127,27 @@ function onSetTxtStroke(value) {
     renderMeme()
 }
 
-function onAddLine() {
-    addLine()
+function onAddLine(value) {
+    addLine(value)
     const center = { x: gCanvas.width / 2, y: gCanvas.height / 2 }
     let newLineIdx = gMeme.lines.length - 1
     let newTxt = gMeme.lines[newLineIdx].txt
 
     drawText(newTxt, center.x, center.y, newLineIdx)
+    renderMeme()
+
 
 }
 
-function onDeleteLine(){
-    console.log('DELETE LINE IN PROGRESS CONTINUE LATER')
-    // deleteLine()
-    // renderMeme()
+function onDeleteLine() {
+    // console.log('DELETE LINE IN PROGRESS CONTINUE LATER')
+    deleteLine()
+    renderMeme()
 }
 
 function onSwitchLine() {
     switchLineIdx()
+    renderMeme()
     console.log('TEXT LINE NUMBER : ', gMeme.selectedLineIdx)
 }
 
@@ -118,4 +157,32 @@ function onAlign(direction) {
     console.log('gMeme', gMeme)
     renderMeme()
 
+}
+
+function onRenderRandomMeme() {
+    console.log('Generating random meme')
+    // handleSectionDisplay()
+    handleSectionDisplayV2('editor')
+    updateRandomMemeImg()
+    resetgMemeLines()
+    renderMeme()
+}
+
+function onSaveMeme() {
+    //SAVE MEME AND THEN MOVE THE USER TO THE SAVED MEMES GALLERY
+    //HIDE EDITOR - SHOW SAVED MEMES GALLERY
+    //SHOW A MASSAGE YOUR MEME WAS SAVED
+    console.log('saving meme')
+    saveMeme()
+    renderSavedMemesGallery()
+    handleSectionDisplayV2('saved-gallery')
+}
+
+function onAddSticker(value) {
+    onAddLine(value)
+}
+
+function changeTextInput(){
+    let elTextInput = document.querySelector('.text-edit-input')
+    elTextInput.value = gMeme.lines[gMeme.selectedLineIdx].txt
 }

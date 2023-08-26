@@ -44,7 +44,6 @@ function resetgMemeLines() {
 }
 
 function setLineDimensions(text, lineIdx) {
-    // console.log('gMeme.lines', gMeme.lines)
     let measure = gCtx.measureText(text)
     gMeme.lines[lineIdx].height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent
     gMeme.lines[lineIdx].width = measure.actualBoundingBoxLeft + measure.actualBoundingBoxRight

@@ -1,7 +1,10 @@
 'use strict'
 
 function onUpdategMemeImg(imgId) {
-    // handleSectionDisplay()
+    //this if is for the upload image
+    if(gMeme.dataUrl){
+        delete gMeme.dataUrl
+    }
     handleSectionDisplayV2('editor')
     updateMemeImg(imgId)
     resetgMemeLines()
@@ -9,22 +12,23 @@ function onUpdategMemeImg(imgId) {
     console.log('gMeme', gMeme)
 }
 
-function renderMeme() {
-    // let elImg
-    // if (gMeme.dataUrl) {
-    //     elImg = gMeme.dataUrl
+function renderMeme(dataUrl) {
+    let elImg = getImage()
+
+    //this code is for the upload image for meme - in progress
+    // if (dataUrl) {
     //     resetgMemeLines()
+    // }
+    // if (dataUrl || gMeme.dataUrl) {
+    //     elImg = gMeme.dataUrl
+    //     console.log('render meme with image from pc')
     //     gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height)
     //     renderAllLines()
     //     if (!isHighlight) {
     //         drawFrame()
     //     }
-
-    //     return
+    //     console.log('gMeme', gMeme)
     // } else {
-    //     elImg = getImage()
-    // }
-    let elImg = getImage()
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height)
         renderAllLines()
@@ -33,8 +37,11 @@ function renderMeme() {
         }
 
     }
-
+    // }
 }
+
+
+
 
 function renderAllLines() {
     gMeme.lines.forEach((line, lineIdx) => {
@@ -140,7 +147,6 @@ function onAddLine(value) {
 }
 
 function onDeleteLine() {
-    // console.log('DELETE LINE IN PROGRESS CONTINUE LATER')
     deleteLine()
     renderMeme()
 }
@@ -161,7 +167,10 @@ function onAlign(direction) {
 
 function onRenderRandomMeme() {
     console.log('Generating random meme')
-    // handleSectionDisplay()
+    //this if is for the upload image for meme
+    if(gMeme.dataUrl){
+        delete gMeme.dataUrl
+    }
     handleSectionDisplayV2('editor')
     updateRandomMemeImg()
     resetgMemeLines()
@@ -169,9 +178,6 @@ function onRenderRandomMeme() {
 }
 
 function onSaveMeme() {
-    //SAVE MEME AND THEN MOVE THE USER TO THE SAVED MEMES GALLERY
-    //HIDE EDITOR - SHOW SAVED MEMES GALLERY
-    //SHOW A MASSAGE YOUR MEME WAS SAVED
     console.log('saving meme')
     saveMeme()
     renderSavedMemesGallery()
@@ -182,7 +188,7 @@ function onAddSticker(value) {
     onAddLine(value)
 }
 
-function changeTextInput(){
+function changeTextInput() {
     let elTextInput = document.querySelector('.text-edit-input')
     elTextInput.value = gMeme.lines[gMeme.selectedLineIdx].txt
 }

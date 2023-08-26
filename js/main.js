@@ -6,7 +6,6 @@ const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 
 function onInit() {
-  console.log('on init')
   gCanvas = document.querySelector('canvas')
   gCtx = gCanvas.getContext('2d')
   renderGalleryImages()
@@ -58,7 +57,6 @@ function changeIsSaving(state) {
 function downloadCanvas(elLink) {
   const dataUrl = gCanvas.toDataURL()
   // gMeme.dataUrl = dataUrl
-  console.log('gMeme', gMeme)
 
   elLink.href = dataUrl
   elLink.download = 'my-meme'
@@ -83,14 +81,12 @@ function loadImageFromInput(ev, onImageReady) {
 
 function renderImg(img) {
   console.log('onProgress')
-  // gMeme.dataUrl = img
-  // renderMeme()
-  // handleSectionDisplayV2('editor')
+  // console.log('img', img)
+  gMeme.dataUrl = img
+  renderMeme(img)
+  handleSectionDisplayV2('editor')
 
 }
-
-
-
 
 
 function onShareImg() {
@@ -163,7 +159,7 @@ function onDown(ev) {
     return
   }
   isHighlight = false
-  console.log('line clicked!!!')
+  // console.log('line clicked!!!')
 
   meme.selectedLineIdx = click.lineIdx
   changeTextInput()
@@ -240,5 +236,6 @@ function moveLine(dx, dy) {
 
 
 
-
-
+function toggleMenu() {
+  document.body.classList.toggle('menu-open')
+}

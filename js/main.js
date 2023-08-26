@@ -4,7 +4,6 @@ let gCtx
 let gStartPos
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
-
 function onInit() {
   gCanvas = document.querySelector('canvas')
   gCtx = gCanvas.getContext('2d')
@@ -18,30 +17,41 @@ function handleSectionDisplayV2(showSection) {
   let elSavedGalleryContainer = document.querySelector('.saved-memes-container')
   let elAboutMeContainer = document.querySelector('.about-me-container')
 
-  if (showSection === 'gallery') {
-    elGalleryContainer.classList.remove('hide')
-    elEditorContainer.classList.add('hide')
-    elSavedGalleryContainer.classList.add('hide')
-    elAboutMeContainer.classList.add('hide')
-  } else if (showSection === 'editor') {
-    elGalleryContainer.classList.add('hide')
-    elEditorContainer.classList.remove('hide')
-    elSavedGalleryContainer.classList.add('hide')
-    elAboutMeContainer.classList.add('hide')
-  } else if (showSection === 'saved-gallery') {
-    renderSavedMemesGallery()
-    elGalleryContainer.classList.add('hide')
-    elEditorContainer.classList.add('hide')
-    elSavedGalleryContainer.classList.remove('hide')
-    elAboutMeContainer.classList.add('hide')
-  } else if (showSection === 'about') {
-    elGalleryContainer.classList.add('hide')
-    elEditorContainer.classList.add('hide')
-    elSavedGalleryContainer.classList.add('hide')
-    elAboutMeContainer.classList.remove('hide')
-  }
+  elGalleryContainer.classList.add('hide')
+  elEditorContainer.classList.add('hide')
+  elSavedGalleryContainer.classList.add('hide')
+  elAboutMeContainer.classList.add('hide')
 
+  switch (showSection) {
+    case 'gallery':
+      elGalleryContainer.classList.remove('hide')
+      if (document.body.classList.contains('menu-open')) {
+        document.body.classList.toggle('menu-open')
+      }
+      break;
+
+    case 'editor':
+      elEditorContainer.classList.remove('hide')
+      break;
+
+    case 'saved-gallery':
+      renderSavedMemesGallery();
+      elSavedGalleryContainer.classList.remove('hide')
+      if (document.body.classList.contains('menu-open')) {
+        document.body.classList.toggle('menu-open')
+      }
+      break;
+
+    case 'about':
+      elAboutMeContainer.classList.remove('hide')
+      if (document.body.classList.contains('menu-open')) {
+        document.body.classList.toggle('menu-open')
+      }
+      break;
+  }
 }
+
+
 
 function onDownloadCanvas(elLink) {
   // changeIsSaving(true)

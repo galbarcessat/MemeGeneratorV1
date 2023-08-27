@@ -28,7 +28,6 @@ let gFilterBy = { name: '' }
 
 function getGalleryImages() {
     if (gFilterBy.name === '') {
-        // console.log('ALL IMAGES RETURNED')
         return gImgs
     }
 
@@ -38,7 +37,6 @@ function getGalleryImages() {
             keyword.toLowerCase().includes(gFilterBy.name.toLowerCase())
         )
     )
-    // console.log('filtered images', gImgsCopy)
     return gImgsCopy
 }
 

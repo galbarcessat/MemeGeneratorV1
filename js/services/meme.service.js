@@ -3,12 +3,14 @@
 let gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
+    uploadedImgUrl: null,
     lines: []
 
 }
 
 
 let isHighlight
+let uploadedImg
 
 function getMeme() {
     return gMeme
@@ -63,7 +65,6 @@ function setTxtColor(value) {
 }
 
 function setTxtSize(action) {
-    console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx)
     if (action === '+') {
         gMeme.lines[gMeme.selectedLineIdx].size += 5
     } else if (action === '-') {
@@ -77,7 +78,6 @@ function setTxtStrokeColor(value) {
 }
 
 function updateTxtFont(font) {
-    console.log('font', font)
     gMeme.lines[gMeme.selectedLineIdx].font = font
 
 }
@@ -95,14 +95,12 @@ function addLine(txt = 'Enter text here') {
     gMeme.lines.push(line)
     gMeme.selectedLineIdx = gMeme.lines.length - 1
     setLineDimensions(line.txt, gMeme.selectedLineIdx)
-    // console.log('gMeme', gMeme)
 }
 
 function deleteLine() {
     let selectedLineIdx = gMeme.selectedLineIdx
     gMeme.lines.splice(selectedLineIdx, 1)
     gMeme.selectedLineIdx = 0
-    // console.log('gMeme.lines', gMeme.lines)
 }
 
 function switchLineIdx() {
@@ -128,12 +126,22 @@ function saveMeme() {
     let savedMemes = loadFromStorage(STORAGE_KEY)
     if (!savedMemes || !savedMemes.length) savedMemes = []
 
-    let gMemeCopy = structuredClone(gMeme);
+    // let gMemeCopy = structuredClone(gMeme)
+    const gMemeCopy = JSON.parse(JSON.stringify(gMeme))
     const dataUrl = gCanvas.toDataURL()
     gMemeCopy.dataUrl = dataUrl
-    savedMemes.push(gMemeCopy)
+    if (gMeme.uploadedImgUrl) {
+        gMemeCopy.uploadedImgUrl = gMeme.uploadedImgUrl
+        // console.log('gMemeCopy', gMemeCopy)
+    }
 
+    savedMemes.push(gMemeCopy)
     saveToStorage(STORAGE_KEY, savedMemes)
 }
+
+
+
+
+
 
 

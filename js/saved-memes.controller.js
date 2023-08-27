@@ -12,15 +12,21 @@ function renderSavedMemesGallery() {
 ` ).join('')
 
     elSavedMemesContainer.innerHTML = strHTML
+    // <button class="delete-saved-btn">Delete</button> לעטוף בדיב את התמונה והכפתור
 }
 
+
+// FIX IT THAT EVERY SAVED MEME WITH UPLOADED IMG HAS ITS OWN IMAGE AND NOT A GLOBAL UPLOADED IMAGE(FOR RE EDITING FROM SAVED GALLERY)
 function onEditMeme(dataUrl) {
-    handleSectionDisplayV2('editor')
     let meme = getMemeByDataUrl(dataUrl)
     gMeme = meme
-    if(gMeme.dataUrl){
+    console.log('gMeme', gMeme)
+    if (gMeme.dataUrl) {
         delete gMeme.dataUrl
     }
+    changeTextInput()
     renderMeme()
+    handleSectionDisplayV2('editor')
+
     console.log('gMeme', gMeme)
 }

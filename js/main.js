@@ -89,11 +89,14 @@ function loadImageFromInput(ev, onImageReady) {
   reader.readAsDataURL(ev.target.files[0])
 }
 
+
+
 function renderImg(img) {
   console.log('onProgress')
   // console.log('img', img)
-  gMeme.dataUrl = img
-  renderMeme(img)
+  gMeme.uploadedImgUrl = img.src
+  resetgMemeLines()
+  renderMeme()
   handleSectionDisplayV2('editor')
 
 }

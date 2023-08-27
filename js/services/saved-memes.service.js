@@ -9,7 +9,6 @@ function getSavedMemesImages() {
         t.push(meme.dataUrl)
         return t
     }, [])
-    // console.log('memesImages', memesImages)
     return memesImages
 
 }

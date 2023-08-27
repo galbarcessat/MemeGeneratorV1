@@ -2,33 +2,25 @@
 
 function onUpdategMemeImg(imgId) {
     //this if is for the upload image
-    if(gMeme.dataUrl){
-        delete gMeme.dataUrl
+    if (gMeme.uploadedImgUrl) {
+        gMeme.uploadedImgUrl = null
     }
     handleSectionDisplayV2('editor')
     updateMemeImg(imgId)
     resetgMemeLines()
+    changeTextInput()
     renderMeme()
     console.log('gMeme', gMeme)
 }
 
-function renderMeme(dataUrl) {
-    let elImg = getImage()
+function renderMeme() {
+    let elImg = new Image()
+    if (gMeme.uploadedImgUrl) {
+        elImg.src = gMeme.uploadedImgUrl
+    } else {
+        elImg.src = getImageUrl()
+    }
 
-    //this code is for the upload image for meme - in progress
-    // if (dataUrl) {
-    //     resetgMemeLines()
-    // }
-    // if (dataUrl || gMeme.dataUrl) {
-    //     elImg = gMeme.dataUrl
-    //     console.log('render meme with image from pc')
-    //     gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height)
-    //     renderAllLines()
-    //     if (!isHighlight) {
-    //         drawFrame()
-    //     }
-    //     console.log('gMeme', gMeme)
-    // } else {
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height)
         renderAllLines()
@@ -37,7 +29,8 @@ function renderMeme(dataUrl) {
         }
 
     }
-    // }
+
+console.log('gMeme', gMeme)
 }
 
 
@@ -101,11 +94,11 @@ function drawText(text, x, y, lineIdx) {
 }
 
 
-function getImage() {
+function getImageUrl() {
     let elImgUrl = gImgs.find(img => img.id === gMeme.selectedImgId).url
-    var elImg = new Image()
-    elImg.src = elImgUrl
-    return elImg
+    // var elImg = new Image()
+    // elImg.src = elImgUrl
+    return elImgUrl
 }
 
 
@@ -168,12 +161,13 @@ function onAlign(direction) {
 function onRenderRandomMeme() {
     console.log('Generating random meme')
     //this if is for the upload image for meme
-    if(gMeme.dataUrl){
-        delete gMeme.dataUrl
+    if (gMeme.uploadedImgUrl) {
+        gMeme.uploadedImgUrl = null
     }
     handleSectionDisplayV2('editor')
     updateRandomMemeImg()
     resetgMemeLines()
+    changeTextInput()
     renderMeme()
 }
 

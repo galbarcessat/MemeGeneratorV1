@@ -7,12 +7,14 @@ function renderSavedMemesGallery() {
         elSavedMemesContainer.innerHTML = ''
         return
     }
+    let strHTML = savedMemesImgs.map(dataUrl => `<div class="saved-meme-card"><img src="${dataUrl}" alt="" class="image" 
+    onclick="onEditMeme('${dataUrl}')"/>
+    <button class="delete-saved-btn" onclick="onDeleteSavedMeme('${dataUrl}')">Delete</button>
+    </div>
 
-    let strHTML = savedMemesImgs.map(dataUrl => `<img src="${dataUrl}" alt="" class="image" onclick="onEditMeme('${dataUrl}')"/>
 ` ).join('')
 
     elSavedMemesContainer.innerHTML = strHTML
-    // <button class="delete-saved-btn">Delete</button> לעטוף בדיב את התמונה והכפתור
 }
 
 
@@ -29,4 +31,19 @@ function onEditMeme(dataUrl) {
     handleSectionDisplayV2('editor')
 
     console.log('gMeme', gMeme)
+}
+
+function onDeleteSavedMeme(dataUrl){
+    deleteSavedMeme(dataUrl)
+    renderSavedMemesGallery()
+}
+
+function deleteSavedMeme(dataUrl){
+    console.log(dataUrl)
+    let savedMemes = loadFromStorage(STORAGE_KEY)
+    console.log(savedMemes)
+    let memeIdx = savedMemes.findIndex(meme => meme.dataUrl === dataUrl)
+    console.log(memeIdx)
+    savedMemes.splice(memeIdx,1)
+    saveToStorage(STORAGE_KEY,savedMemes)
 }

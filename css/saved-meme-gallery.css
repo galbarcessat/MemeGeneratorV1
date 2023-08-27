@@ -21,3 +21,19 @@
     margin-bottom: 3rem;
 
 }
+.saved-meme-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.delete-saved-btn{
+    margin-top: 1rem;
+    width: 50%;
+    height: 1.5rem;
+    background-color: rgb(227, 66, 66);
+    color: white;
+    /* font-weight: 500; */
+    /* border-radius: 1rem; */
+
+}

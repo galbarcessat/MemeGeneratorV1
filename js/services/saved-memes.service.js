@@ -19,3 +19,14 @@ function getMemeByDataUrl(dataUrl) {
 }
 
 
+function deleteSavedMeme(dataUrl) {
+    console.log(dataUrl)
+    let savedMemes = loadFromStorage(STORAGE_KEY)
+    console.log(savedMemes)
+    let memeIdx = savedMemes.findIndex(meme => meme.dataUrl === dataUrl)
+    console.log(memeIdx)
+    savedMemes.splice(memeIdx, 1)
+    saveToStorage(STORAGE_KEY, savedMemes)
+}
+
+

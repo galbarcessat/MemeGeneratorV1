@@ -1,4 +1,3 @@
-
 .saved-meme-gallery {
     display: grid;
     /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
@@ -21,19 +20,25 @@
     margin-bottom: 3rem;
 
 }
-.saved-meme-card{
+
+.saved-meme-card {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.delete-saved-btn{
+
+.delete-saved-btn {
     margin-top: 1rem;
-    width: 50%;
-    height: 1.5rem;
+    width: 40%;
+    height: 2rem;
     background-color: rgb(227, 66, 66);
     color: white;
-    /* font-weight: 500; */
-    /* border-radius: 1rem; */
+    cursor: pointer;
 
+
+}
+
+.delete-saved-btn:hover {
+    background-color: rgb(243, 42, 42);
 }

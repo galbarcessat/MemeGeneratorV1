@@ -18,7 +18,6 @@ function renderSavedMemesGallery() {
 }
 
 
-// FIX IT THAT EVERY SAVED MEME WITH UPLOADED IMG HAS ITS OWN IMAGE AND NOT A GLOBAL UPLOADED IMAGE(FOR RE EDITING FROM SAVED GALLERY)
 function onEditMeme(dataUrl) {
     let meme = getMemeByDataUrl(dataUrl)
     gMeme = meme
@@ -38,12 +37,3 @@ function onDeleteSavedMeme(dataUrl){
     renderSavedMemesGallery()
 }
 
-function deleteSavedMeme(dataUrl){
-    console.log(dataUrl)
-    let savedMemes = loadFromStorage(STORAGE_KEY)
-    console.log(savedMemes)
-    let memeIdx = savedMemes.findIndex(meme => meme.dataUrl === dataUrl)
-    console.log(memeIdx)
-    savedMemes.splice(memeIdx,1)
-    saveToStorage(STORAGE_KEY,savedMemes)
-}
